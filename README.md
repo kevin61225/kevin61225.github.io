@@ -28,19 +28,14 @@ This repository powers a small resume-style personal site on GitHub Pages using 
 
 ## Local Preview
 
-You can open `index.html` directly in a browser, or run a local static server if you prefer:
+Because the pages use Jekyll front matter and a shared layout, you must serve them through Jekyll for correct rendering. The recommended approach is to use Bundler:
 
 ```bash
-python -m http.server 8000
+bundle install
+bundle exec jekyll serve
 ```
 
-Then visit `http://localhost:8000/`.
-
-If you have Jekyll installed locally, you can also build the site with:
-
-```bash
-jekyll serve
-```
+Then visit `http://localhost:4000/`.
 
 If you open the repository in a VS Code Dev Container, Bundler is preconfigured and you can run:
 
