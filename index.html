@@ -63,15 +63,47 @@ page_kind: home
 
   <article class="panel section projects" id="projects">
     <h2>Projects</h2>
+    <div class="project-search" data-project-search-root>
+      <label class="project-search-label" for="project-search-home">Search projects</label>
+      <input
+        id="project-search-home"
+        class="project-search-input"
+        type="search"
+        placeholder="Type repo name, description, or URL"
+        data-project-search-input
+      />
+      <p class="project-search-status" data-project-search-status>
+        Showing {{ site.data.projects | size }} projects
+      </p>
+
     <div class="project-list">
-      <a class="link-card" href="{{ '/assignment/' | relative_url }}">
-        <strong>Assignment Hub</strong>
-        <span>A subpage for ECV assignments and related exercises.</span>
-      </a>
-      <a class="link-card" href="{{ '/site-projects/' | relative_url }}">
-        <strong>Site Projects</strong>
-        <span>Small supporting pages and future portfolio-style project notes.</span>
-      </a>
+      {% for project in site.data.projects %}
+      <article
+        class="link-card project-card"
+        data-project-item
+        data-project-name="{{ project.name | downcase }}"
+        data-project-description="{{ project.description | downcase }}"
+        data-project-repo="{{ project.repo_url | downcase }}"
+        data-project-site="{{ project.site_url | default: '' | downcase }}"
+      >
+        <a class="project-repo-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">
+          <strong>{{ project.name }}</strong>
+        </a>
+        <span>{{ project.description }}</span>
+        <a class="project-site-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">
+          Repository: {{ project.repo_url }}
+        </a>
+        {% if project.site_url %}
+        <a class="project-site-link" href="{{ project.site_url }}" target="_blank" rel="noopener noreferrer">
+          GitHub Pages: {{ project.site_url }}
+        </a>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+      <p class="project-search-empty" hidden data-project-search-empty>
+        No projects matched your search.
+      </p>
     </div>
   </article>
 

@@ -9,24 +9,43 @@ page_kind: projects
   <span class="eyebrow">Site Projects</span>
   <h1>Personal site pages</h1>
   <p class="intro">
-    This page collects the parts of the GitHub Pages site that support the resume experience. Use
-    it for small site features, future portfolio pages, or concise project write-ups.
+    This page lists the current projects in the GitHub account. Click any project name to open the
+    repository directly.
   </p>
 
-  <div class="card">
-    <strong>Current pages</strong>
+  <div class="card" data-project-search-root>
+    <strong>Current project repositories</strong>
+    <label class="project-search-label" for="project-search-page">Search projects</label>
+    <input
+      id="project-search-page"
+      class="project-search-input"
+      type="search"
+      placeholder="Type repo name, description, or URL"
+      data-project-search-input
+    />
+    <p class="project-search-status" data-project-search-status>
+      Showing {{ site.data.projects | size }} projects
+    </p>
     <ul class="list">
-      <li><a href="{{ '/' | relative_url }}">Resume homepage</a></li>
-      <li><a href="{{ '/assignment/' | relative_url }}">Assignment page</a></li>
+      {% for project in site.data.projects %}
+      <li
+        data-project-item
+        data-project-name="{{ project.name | downcase }}"
+        data-project-description="{{ project.description | downcase }}"
+        data-project-repo="{{ project.repo_url | downcase }}"
+        data-project-site="{{ project.site_url | default: '' | downcase }}"
+      >
+        <a href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">{{ project.name }}</a>
+        - {{ project.description }}
+        {% if project.site_url %}
+        <br />
+        <a href="{{ project.site_url }}" target="_blank" rel="noopener noreferrer">GitHub Pages: {{ project.site_url }}</a>
+        {% endif %}
+      </li>
+      {% endfor %}
     </ul>
-  </div>
-
-  <div class="card">
-    <strong>Good next additions</strong>
-    <ul class="list">
-      <li>A short project gallery</li>
-      <li>Links to GitHub or demo sites</li>
-      <li>A simple changelog for the personal site</li>
-    </ul>
+    <p class="project-search-empty" hidden data-project-search-empty>
+      No projects matched your search.
+    </p>
   </div>
 </section>

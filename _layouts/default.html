@@ -7,6 +7,8 @@
       name="description"
       content="{{ page.description | default: site.description | escape }}"
     />
+    <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}" />
+    <link rel="shortcut icon" href="{{ '/favicon.ico' | relative_url }}" />
     <title>{{ page.title | default: site.title | escape }}</title>
     <style>
       :root {
@@ -98,9 +100,13 @@
         display: grid;
         place-items: center;
         background: linear-gradient(135deg, var(--accent), #115e59);
-        color: #fff;
-        font-weight: 700;
         box-shadow: 0 12px 28px rgba(15, 118, 110, 0.25);
+      }
+
+      .mark svg {
+        width: 1.65rem;
+        height: 1.65rem;
+        display: block;
       }
 
       .brand strong {
@@ -309,12 +315,96 @@
         gap: 0.9rem;
       }
 
+      .project-search {
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      .project-search-label {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .project-search-input {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--text);
+        padding: 0.65rem 0.8rem;
+        font: inherit;
+      }
+
+      .project-search-status,
+      .project-search-empty {
+        margin: 0;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      .project-list.compact {
+        margin-top: 0.85rem;
+      }
+
+      .subsection-title {
+        margin: 0 0 0.6rem;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .more-projects {
+        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.52);
+        padding: 0.65rem 0.8rem 0.8rem;
+      }
+
+      .more-projects summary {
+        cursor: pointer;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .compact-item {
+        padding: 0.85rem 0.95rem;
+      }
+
       .link-card {
         display: block;
         padding: 1rem 1.05rem;
         background: rgba(255, 255, 255, 0.72);
         border: 1px solid var(--line);
         color: inherit;
+      }
+
+      .project-card {
+        border-radius: 1rem;
+      }
+
+      .project-repo-link {
+        text-decoration: none;
+      }
+
+      .project-site-link {
+        display: inline-block;
+        margin-top: 0.55rem;
+        color: var(--accent);
+        font-size: 0.92rem;
+        text-decoration: none;
+        word-break: break-all;
+      }
+
+      .project-list [data-project-item][hidden],
+      .list [data-project-item][hidden] {
+        display: none !important;
       }
 
       .link-card strong {
@@ -398,6 +488,10 @@
         color: var(--text);
       }
 
+      .content-card .card .project-search-label {
+        margin-top: 0.65rem;
+      }
+
       .content-card .list {
         margin: 1.4rem 0 0;
         padding-left: 1.2rem;
@@ -454,7 +548,22 @@
       <main class="shell">
         <header class="topbar">
           <a class="brand" href="{{ '/' | relative_url }}" aria-label="Kevin Tu resume home">
-            <span class="mark">KT</span>
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img" focusable="false" aria-hidden="true">
+                <defs>
+                  <linearGradient id="cloudGradient" x1="12" y1="18" x2="52" y2="50" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stop-color="#ffffff" />
+                    <stop offset="1" stop-color="#dbeafe" />
+                  </linearGradient>
+                </defs>
+                <g transform="translate(0 4)">
+                  <path
+                    d="M20 46h25.5c7 0 12.5-5.2 12.5-11.8 0-6.3-5.2-11.4-11.8-11.8-1.7-7-8-12.2-15.6-12.2-8.5 0-15.5 6.5-16 14.8C8 25.8 4 30.3 4 36c0 5.5 4.9 10 11 10h5z"
+                    fill="url(#cloudGradient)"
+                  />
+                </g>
+              </svg>
+            </span>
             <span>
               <strong>Kevin Tu</strong>
               <span>Resume-style GitHub Pages</span>
@@ -475,5 +584,48 @@
         </footer>
       </main>
     </div>
+    <script>
+      document.querySelectorAll("[data-project-search-root]").forEach((root) => {
+        const input = root.querySelector("[data-project-search-input]");
+        const status = root.querySelector("[data-project-search-status]");
+        const empty = root.querySelector("[data-project-search-empty]");
+        const items = Array.from(root.querySelectorAll("[data-project-item]"));
+
+        if (!input || items.length === 0) {
+          return;
+        }
+
+        const filterProjects = () => {
+          const query = input.value.trim().toLowerCase();
+          let visibleCount = 0;
+
+          items.forEach((item) => {
+            const text = [
+              item.dataset.projectName || "",
+              item.dataset.projectDescription || "",
+              item.dataset.projectRepo || "",
+              item.dataset.projectSite || "",
+            ].join(" ");
+            const matched = query.length === 0 || text.includes(query);
+
+            item.hidden = !matched;
+            if (matched) {
+              visibleCount += 1;
+            }
+          });
+
+          if (status) {
+            status.textContent = "Showing " + visibleCount + " projects";
+          }
+
+          if (empty) {
+            empty.hidden = visibleCount > 0;
+          }
+        };
+
+        input.addEventListener("input", filterProjects);
+        filterProjects();
+      });
+    </script>
   </body>
 </html>

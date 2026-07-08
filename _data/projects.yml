@@ -1,0 +1,66 @@
+- name: camera-trap
+  description: A web application for managing and analyzing camera trap images and video clips.
+  repo_url: https://github.com/kevin61225/camera-trap
+  featured: true
+
+- name: dotnetcore-jwt-practice
+  description: Practice project for JWT authentication with .NET Core.
+  repo_url: https://github.com/kevin61225/dotnetcore-jwt-practice
+
+- name: easytravelintaiwan
+  description: Travel information project focused on Taiwan destinations.
+  repo_url: https://github.com/kevin61225/easytravelintaiwan
+
+- name: hw-backend-api-design
+  description: Assignment for a senior backend engineer API design challenge.
+  repo_url: https://github.com/kevin61225/hw-backend-api-design
+  featured: true
+
+- name: hw-backend-api-enhancement
+  description: Assignment project for backend API enhancement tasks.
+  repo_url: https://github.com/kevin61225/hw-backend-api-enhancement
+
+- name: hw-frontend-migration-vuejs
+  description: Assignment project for frontend migration to Vue.js.
+  repo_url: https://github.com/kevin61225/hw-frontend-migration-vuejs
+
+- name: monsterstrikebot
+  description: A LINE bot built around the Monster Strike game.
+  repo_url: https://github.com/kevin61225/monsterstrikebot
+  featured: true
+
+- name: php-laravel-ec2-test
+  description: AWS CodeStar PHP (Laravel) web application test repository.
+  repo_url: https://github.com/kevin61225/php-laravel-ec2-test
+
+- name: shutdown
+  description: Utility for scheduling system shutdown time.
+  repo_url: https://github.com/kevin61225/shutdown
+
+- name: Sudoku
+  description: A Sudoku-related project and coding practice repository.
+  repo_url: https://github.com/kevin61225/Sudoku
+
+- name: travel-tools
+  description: Tools for travel purpose.
+  repo_url: https://github.com/kevin61225/travel-tools
+  site_url: https://kevin61225.github.io/travel-tools/
+  featured: true
+
+- name: tutorial-chatbot-with-sdd
+  description: A chatbot project created with SDD methodology.
+  repo_url: https://github.com/kevin61225/tutorial-chatbot-with-sdd
+  featured: true
+
+- name: vocabulary-card-service
+  description: API service for vocabulary learning across different languages.
+  repo_url: https://github.com/kevin61225/vocabulary-card-service
+  featured: true
+
+- name: youtube-iframe-api
+  description: Sample project demonstrating usage of the YouTube iFrame API.
+  repo_url: https://github.com/kevin61225/youtube-iframe-api
+
+- name: zabbix-docker
+  description: Dockerized setup and experiments for Zabbix.
+  repo_url: https://github.com/kevin61225/zabbix-docker
