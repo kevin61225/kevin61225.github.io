@@ -26,6 +26,7 @@
     "vscode": {
       "extensions": [
         "Shopify.ruby-lsp",
+        "mhutchie.git-graph",
         "DavidAnson.vscode-markdownlint",
         "redhat.vscode-yaml"
       ],
