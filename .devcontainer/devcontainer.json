@@ -12,9 +12,6 @@
       "onAutoForward": "openBrowser"
     }
   },
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached"
-  ],
   "containerEnv": {
     "JEKYLL_ENV": "development",
     "BUNDLE_PATH": "/usr/local/bundle",
